@@ -13,4 +13,8 @@ fn main() {
     }
     println!("cargo:rustc-check-cfg=cfg(specified_profile_use)");
     println!("cargo:rustc-env=PROFILE={}", std::env::var("PROFILE").unwrap());
+
+    if std::env::var("CARGO_CFG_TARGET_OS").as_deref() == Ok("macos") {
+        println!("cargo:rustc-link-arg=-Wl,-headerpad_max_install_names");
+    }
 }
